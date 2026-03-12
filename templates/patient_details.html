@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details - MedTrack</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/doctor.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/doctor/dashboard">
+                <i class="fas fa-hospital-alt me-2"></i>MedTrack - Doctor Portal
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/doctor/dashboard">
+                            <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/doctor/appointments">
+                            <i class="fas fa-calendar-check me-1"></i>Appointments
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/doctor/logout">
+                            <i class="fas fa-sign-out-alt me-1"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0">
+                        <i class="fas fa-user-injured text-primary me-2"></i>Patient Details
+                    </h2>
+                    <div>
+                        <a href="/doctor/appointments" class="btn btn-outline-primary me-2">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Appointments
+                        </a>
+                        <a href="/doctor/add_record/{{ patient._id }}" class="btn btn-success">
+                            <i class="fas fa-plus me-2"></i>Add Medical Record
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patient Information -->
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-id-card me-2"></i>Patient Information
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="info-item">
+                                    <label class="info-label">Full Name</label>
+                                    <p class="info-value mb-0">{{ patient.name }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item">
+                                    <label class="info-label">Age</label>
+                                    <p class="info-value mb-0">{{ patient.age }} years</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item">
+                                    <label class="info-label">Gender</label>
+                                    <p class="info-value mb-0">{{ patient.gender }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item">
+                                    <label class="info-label">Contact Number</label>
+                                    <p class="info-value mb-0">{{ patient.contact_number }}</p>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="info-item">
+                                    <label class="info-label">Email</label>
+                                    <p class="info-value mb-0">{{ patient.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-line me-2"></i>Quick Stats
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-item">
+                            <div class="stat-number">{{ medical_records|length }}</div>
+                            <div class="stat-label">Medical Records</div>
+                        </div>
+                        {% if medical_records %}
+                        <div class="stat-item">
+                            <div class="stat-number">{{ medical_records[0].date.strftime('%Y-%m-%d') }}</div>
+                            <div class="stat-label">Last Visit</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical History -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-history me-2"></i>Medical History & Records
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if medical_records %}
+                        <div class="timeline">
+                            {% for record in medical_records %}
+                            <div class="timeline-item">
+                                <div class="timeline-marker">
+                                    <i class="fas fa-notes-medical"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="timeline-header">
+                                        <h6 class="mb-1">Medical Record - {{ record.date.strftime('%B %d, %Y') }}</h6>
+                                        <small class="text-muted">{{ record.date.strftime('%I:%M %p') }}</small>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <strong>Diagnosis:</strong>
+                                                <p class="mb-2">{{ record.diagnosis }}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <strong>Prescription:</strong>
+                                                <p class="mb-2">{{ record.prescription }}</p>
+                                            </div>
+                                            {% if record.notes %}
+                                            <div class="col-12">
+                                                <strong>Doctor Notes:</strong>
+                                                <p class="mb-0">{{ record.notes }}</p>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-file-medical fa-3x text-muted mb-3"></i>
+                            <h5 class="text-muted">No Medical Records</h5>
+                            <p class="text-muted mb-0">This patient doesn't have any medical records yet.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+:root {
+    --contact-blue: #0f4c81;
+    --contact-teal: #0f766e;
+    --contact-orange: #ea580c;
+    --contact-surface: #f4fbff;
+    --contact-text: #102a43;
+    --contact-muted: #52606d;
+}
+
+body {
+    color: var(--contact-text);
+    background:
+        radial-gradient(circle at 0% 0%, rgba(15, 118, 110, 0.18), transparent 35%),
+        radial-gradient(circle at 100% 10%, rgba(234, 88, 12, 0.14), transparent 30%),
+        var(--contact-surface);
+}
+
+.contact-nav {
+    background: linear-gradient(120deg, #ffffff, #f0f9ff);
+    border-bottom: 1px solid #dbeafe;
+}
+
+.navbar-brand,
+.nav-link {
+    color: var(--contact-text) !important;
+}
+
+.nav-link.active {
+    color: var(--contact-blue) !important;
+    font-weight: 700;
+}
+
+.contact-hero {
+    background: linear-gradient(120deg, #d6f1ff, #dcfce7, #fff1e8);
+    background-size: 180% 180%;
+    animation: gradientShift 12s ease infinite;
+}
+
+.hero-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    color: var(--contact-teal);
+}
+
+.contact-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 1.75rem;
+    box-shadow: 0 12px 24px rgba(15, 42, 67, 0.08);
+    border: 1px solid #e6eef8;
+    height: 100%;
+}
+
+.contact-card h3 {
+    font-size: 1.25rem;
+    margin: 0.75rem 0;
+}
+
+.contact-card small {
+    color: var(--contact-muted);
+}
+
+.contact-icon {
+    font-size: 1.8rem;
+    color: var(--contact-blue);
+}
+
+.contact-panel {
+    border-radius: 16px;
+    background: linear-gradient(130deg, #0f4c81, #0f766e, #9a3412);
+    color: #ffffff;
+    background-size: 220% 220%;
+    animation: gradientShift 10s ease infinite;
+}
+
+.btn-contact-cta {
+    background-color: #ffffff;
+    color: var(--contact-blue);
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 0.7rem 1.2rem;
+}
+
+.btn-contact-cta:hover {
+    background-color: #f8fafc;
+    color: #082f49;
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: slideUp 0.8s ease forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.08s;
+}
+
+.delay-2 {
+    animation-delay: 0.16s;
+}
+
+.delay-3 {
+    animation-delay: 0.24s;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.35s;
+}
+
+@keyframes slideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@media (max-width: 767px) {
+    .contact-card {
+        text-align: center;
+    }
+}

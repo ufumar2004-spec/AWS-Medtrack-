@@ -1,0 +1,614 @@
+/* Doctor Portal Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+    --directory-bg: #f4f8ff;
+    --directory-surface: #ffffff;
+    --directory-ink: #162340;
+    --directory-muted: #5f6f92;
+    --directory-accent: #0d8a79;
+    --directory-accent-soft: #c9f2ea;
+    --directory-glow: #ffd86b;
+}
+
+.doctor-directory-bg {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 12% 20%, #d8e6ff 0%, rgba(216, 230, 255, 0) 40%),
+        radial-gradient(circle at 84% 10%, #ffe4c4 0%, rgba(255, 228, 196, 0) 35%),
+        var(--directory-bg);
+    color: var(--directory-ink);
+    font-family: 'Outfit', 'Segoe UI', sans-serif;
+}
+
+.directory-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 4.5rem 0 5rem;
+    background: linear-gradient(130deg, #11396d 0%, #1d6ca4 45%, #0d8a79 100%);
+    color: #ffffff;
+}
+
+.directory-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+    animation: fade-rise 650ms ease both;
+}
+
+.directory-kicker {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    letter-spacing: 0.06em;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.directory-hero h1 {
+    font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.07;
+    margin: 0;
+}
+
+.directory-subtitle {
+    margin-top: 1rem;
+    max-width: 640px;
+    font-size: 1.08rem;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.directory-home-btn {
+    margin-top: 1rem;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 0.65rem 1.25rem;
+}
+
+.hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+.orb-one {
+    width: 220px;
+    height: 220px;
+    left: -30px;
+    top: 20px;
+    background: radial-gradient(circle, var(--directory-glow) 0%, rgba(255, 216, 107, 0) 70%);
+    animation: orb-drift-one 9s ease-in-out infinite;
+}
+
+.orb-two {
+    width: 280px;
+    height: 280px;
+    right: -40px;
+    bottom: -60px;
+    background: radial-gradient(circle, #73ffd6 0%, rgba(115, 255, 214, 0) 72%);
+    animation: orb-drift-two 11s ease-in-out infinite;
+}
+
+.directory-container {
+    margin-top: -2.2rem;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 2.2rem;
+}
+
+.directory-alert {
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(16, 58, 109, 0.15);
+}
+
+.doctor-card-wrap {
+    animation: fade-rise 600ms ease both;
+}
+
+.doctor-card-wrap {
+    opacity: 0;
+    transform: translateY(28px) scale(0.98);
+    transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.doctor-card-wrap.in-view {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.doctor-card-wrap:nth-child(1) { animation-delay: 60ms; }
+.doctor-card-wrap:nth-child(2) { animation-delay: 120ms; }
+.doctor-card-wrap:nth-child(3) { animation-delay: 180ms; }
+.doctor-card-wrap:nth-child(4) { animation-delay: 240ms; }
+.doctor-card-wrap:nth-child(5) { animation-delay: 300ms; }
+.doctor-card-wrap:nth-child(6) { animation-delay: 360ms; }
+.doctor-card-wrap:nth-child(7) { animation-delay: 420ms; }
+.doctor-card-wrap:nth-child(8) { animation-delay: 480ms; }
+.doctor-card-wrap:nth-child(9) { animation-delay: 540ms; }
+.doctor-card-wrap:nth-child(10) { animation-delay: 600ms; }
+
+.doctor-card {
+    background: linear-gradient(165deg, #ffffff 0%, #f6fbff 100%);
+    border: 1px solid #dbe8ff;
+    border-radius: 22px;
+    padding: 1.35rem 1.2rem;
+    box-shadow: 0 10px 28px rgba(20, 45, 96, 0.11);
+    transition: transform 240ms ease, box-shadow 240ms ease, border-color 240ms ease;
+    height: 100%;
+}
+
+.doctor-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7px;
+    border-radius: 22px 22px 0 0;
+    background: linear-gradient(90deg, rgba(13, 138, 121, 0.95), rgba(31, 125, 231, 0.95));
+}
+
+.card-tone-1 {
+    background: linear-gradient(165deg, #ffffff 0%, #ecf8ff 100%);
+}
+
+.card-tone-1::before {
+    background: linear-gradient(90deg, #1788d1, #53c3ff);
+}
+
+.card-tone-2 {
+    background: linear-gradient(165deg, #ffffff 0%, #f4efff 100%);
+}
+
+.card-tone-2::before {
+    background: linear-gradient(90deg, #6656cc, #8b7ff1);
+}
+
+.card-tone-3 {
+    background: linear-gradient(165deg, #ffffff 0%, #eefcf8 100%);
+}
+
+.card-tone-3::before {
+    background: linear-gradient(90deg, #0d8a79, #3ccfb8);
+}
+
+.card-tone-4 {
+    background: linear-gradient(165deg, #ffffff 0%, #fff4ea 100%);
+}
+
+.card-tone-4::before {
+    background: linear-gradient(90deg, #dd7b14, #ffc36a);
+}
+
+.card-tone-5 {
+    background: linear-gradient(165deg, #ffffff 0%, #ffeef4 100%);
+}
+
+.card-tone-5::before {
+    background: linear-gradient(90deg, #d44576, #ff8db0);
+}
+
+.card-tone-6 {
+    background: linear-gradient(165deg, #ffffff 0%, #eef4ff 100%);
+}
+
+.card-tone-6::before {
+    background: linear-gradient(90deg, #2e58b8, #7ca2ff);
+}
+
+.doctor-card:hover {
+    transform: translateY(-7px) scale(1.01);
+    box-shadow: 0 16px 36px rgba(20, 45, 96, 0.2);
+    border-color: #9fd8ff;
+}
+
+.doctor-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.doctor-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, var(--directory-accent), #1f7de7);
+    color: #fff;
+    font-size: 1.28rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+.doctor-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: saturate(1.08) contrast(1.05);
+}
+
+.doctor-card:hover .doctor-avatar img {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.doctor-card:hover .doctor-avatar {
+    box-shadow: 0 10px 24px rgba(26, 62, 140, 0.25);
+}
+
+.doctor-name {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--directory-ink);
+}
+
+.doctor-job {
+    margin: 0.2rem 0 0;
+    color: var(--directory-accent);
+    font-size: 0.96rem;
+    font-weight: 700;
+}
+
+.doctor-meta li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.56rem;
+    color: var(--directory-muted);
+}
+
+.doctor-meta li:last-child {
+    margin-bottom: 0;
+}
+
+.doctor-meta i {
+    color: #1f6dc8;
+    width: 1rem;
+    text-align: center;
+}
+
+.doctor-actions {
+    display: flex;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+}
+
+.doctor-actions .btn {
+    border-radius: 999px;
+    padding: 0.42rem 0.85rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.doctor-actions .btn:hover {
+    transform: translateY(-2px);
+}
+
+.doctor-actions .btn:active {
+    transform: translateY(0);
+}
+
+.btn-admission {
+    background: #0f7d95;
+    border: 1px solid #0f7d95;
+    color: #ffffff;
+    box-shadow: 0 6px 15px rgba(15, 125, 149, 0.24);
+}
+
+.btn-admission:hover {
+    background: #0c687c;
+    border-color: #0c687c;
+    color: #ffffff;
+}
+
+.btn-contact {
+    background: #ffffff;
+    border: 1px solid #adc0ea;
+    color: #244f94;
+}
+
+.btn-contact:hover {
+    background: #edf3ff;
+    border-color: #7f9ad4;
+    color: #1c3d75;
+}
+
+.directory-footer-note {
+    margin-top: 1.6rem;
+    border-radius: 14px;
+    background: var(--directory-accent-soft);
+    color: #0a4a41;
+    border: 1px solid #9ad7ca;
+    padding: 0.9rem 1.2rem;
+    animation: fade-rise 700ms ease both;
+}
+
+.directory-footer-note p {
+    margin: 0;
+    font-weight: 600;
+}
+
+@keyframes fade-rise {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes orb-drift-one {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -14px) scale(1.05); }
+}
+
+@keyframes orb-drift-two {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-18px, 16px) scale(1.08); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+    0% { opacity: 0; transform: scale(0.6); }
+    70% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseSoft {
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5); }
+    70% { box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.anim-slide-down {
+    animation: slideDown 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.anim-slide-down-delayed {
+    animation: slideDown 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    animation-delay: 0.2s;
+}
+
+.anim-pulse-btn {
+    animation: fade-rise 0.8s ease both, pulseSoft 2.5s infinite 1s;
+    animation-delay: 0.4s;
+    display: inline-block;
+}
+
+.anim-pop-in {
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.doctor-card-wrap:nth-child(1) .anim-pop-in { animation-delay: 220ms; }
+.doctor-card-wrap:nth-child(2) .anim-pop-in { animation-delay: 280ms; }
+.doctor-card-wrap:nth-child(3) .anim-pop-in { animation-delay: 340ms; }
+.doctor-card-wrap:nth-child(4) .anim-pop-in { animation-delay: 400ms; }
+.doctor-card-wrap:nth-child(5) .anim-pop-in { animation-delay: 460ms; }
+.doctor-card-wrap:nth-child(6) .anim-pop-in { animation-delay: 520ms; }
+.doctor-card-wrap:nth-child(7) .anim-pop-in { animation-delay: 580ms; }
+.doctor-card-wrap:nth-child(8) .anim-pop-in { animation-delay: 640ms; }
+.doctor-card-wrap:nth-child(9) .anim-pop-in { animation-delay: 700ms; }
+.doctor-card-wrap:nth-child(10) .anim-pop-in { animation-delay: 760ms; }
+
+.doctor-login-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+.stat-content h3 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.stat-label {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.appointment-row:hover {
+    background-color: #f8f9fa;
+}
+
+.info-item {
+    margin-bottom: 1rem;
+}
+
+.info-label {
+    display: block;
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.info-value {
+    color: #212529;
+    font-size: 1rem;
+}
+
+.patient-info-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #495057;
+}
+
+.stat-label {
+    color: #6c757d;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e9ecef;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    background: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+}
+
+.timeline-content {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.timeline-body {
+    color: #495057;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .welcome-card {
+        padding: 1.5rem;
+    }
+
+    .directory-hero {
+        padding-top: 3.2rem;
+        padding-bottom: 3.8rem;
+    }
+
+    .directory-subtitle {
+        font-size: 1rem;
+    }
+
+    .directory-container {
+        margin-top: -1.4rem;
+    }
+
+    .doctor-card {
+        border-radius: 18px;
+    }
+
+    .stat-card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+        margin-right: 1rem;
+    }
+
+    .stat-content h3 {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Directory - MedTrack</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/doctor.css', v='20260308-2') }}">
+</head>
+<body class="doctor-directory-bg">
+    <section class="directory-hero">
+        <div class="hero-orb orb-one"></div>
+        <div class="hero-orb orb-two"></div>
+        <div class="container position-relative">
+            <div class="directory-hero-content">
+                <p class="directory-kicker anim-slide-down">MedTrack Specialist Network</p>
+                <h1 class="anim-slide-down">Meet Our Doctors And Their Jobs</h1>
+                <p class="directory-subtitle anim-slide-down-delayed">Find specialists by role, experience, and availability in one animated directory.</p>
+                <div class="anim-pulse-btn mt-3">
+                    <a href="/" class="btn btn-light directory-home-btn m-0">
+                        <i class="fas fa-house me-2"></i>Back To Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container directory-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} mt-3 directory-alert" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="row g-4">
+            {% if doctors %}
+                {% for doctor in doctors %}
+                <div class="col-12 col-md-6 col-xl-4 doctor-card-wrap" data-stagger="{{ loop.index0 }}">
+                    <article class="doctor-card h-100 card-tone-{{ (loop.index0 % 6) + 1 }}">
+                        <div class="doctor-card-top">
+                            <span class="doctor-avatar anim-pop-in">
+                                <img
+                                    src="https://i.pravatar.cc/150?u={{ doctor.name | replace(' ', '') }}"
+                                    data-fallback="https://ui-avatars.com/api/?name={{ doctor.name | replace(' ', '+') }}&background=0d8a79&color=ffffff&size=150"
+                                    alt="{{ doctor.name }}"
+                                    loading="lazy"
+                                >
+                            </span>
+                            <div>
+                                <h3 class="doctor-name">{{ doctor.name }}</h3>
+                                <p class="doctor-job">{{ doctor.specialization }}</p>
+                            </div>
+                        </div>
+
+                        <ul class="doctor-meta list-unstyled mb-0">
+                            <li>
+                                <i class="fas fa-briefcase-medical"></i>
+                                <span><strong>Job:</strong> {{ doctor.specialization }}</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-award"></i>
+                                <span><strong>Experience:</strong> {{ doctor.experience }} years</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-clock"></i>
+                                <span><strong>Availability:</strong> {{ doctor.availability }}</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <span><strong>Email:</strong> {{ doctor.email or 'contact@medtrack.com' }}</span>
+                            </li>
+                        </ul>
+
+                        <div class="doctor-actions mt-3">
+                            <a href="/appointment/book" class="btn btn-sm btn-admission">
+                                <i class="fas fa-bed-pulse me-1"></i>Admission
+                            </a>
+                            <a href="{{ url_for('doctor.contact_doctor', doctor_id=doctor._id) }}" class="btn btn-sm btn-contact">
+                                <i class="fas fa-phone-volume me-1"></i>Contact
+                            </a>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-warning mt-3" role="alert">
+                        No doctors available right now.
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <section class="directory-footer-note">
+            <p>
+                <i class="fas fa-circle-info me-2"></i>
+                Need to add your own doctors? Use the doctor add page and they will appear here automatically.
+            </p>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function () {
+            const cards = document.querySelectorAll('.doctor-card-wrap');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            cards.forEach((card) => {
+                observer.observe(card);
+            });
+
+            document.querySelectorAll('.doctor-avatar img').forEach((img) => {
+                img.addEventListener('error', function () {
+                    const fallback = this.getAttribute('data-fallback');
+                    if (fallback && this.src !== fallback) {
+                        this.src = fallback;
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

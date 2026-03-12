@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration - MedTrack</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-hospital-alt me-2"></i>MedTrack
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/patient/login">
+                    <i class="fas fa-sign-in-alt me-1"></i>Login
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-header bg-primary text-white text-center py-4">
+                        <i class="fas fa-user-plus fa-2x mb-2"></i>
+                        <h4 class="mb-0">Patient Registration</h4>
+                        <p class="mb-0 opacity-75">Join MedTrack for better healthcare management</p>
+                    </div>
+                    <div class="card-body p-4">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                                <i class="fas fa-circle-info me-2"></i>{{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" title="Close"></button>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+
+                        {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>{{ error }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" title="Close"></button>
+                        </div>
+                        {% endif %}
+                        <form method="POST" novalidate>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label fw-semibold">
+                                        <i class="fas fa-user me-1"></i>Full Name
+                                    </label>
+                                    <input type="text" class="form-control form-control-lg" id="name" name="name" required placeholder="Enter your full name">
+                                    <div class="invalid-feedback">Please provide your full name.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="age" class="form-label fw-semibold">
+                                        <i class="fas fa-birthday-cake me-1"></i>Age
+                                    </label>
+                                    <input type="number" class="form-control form-control-lg" id="age" name="age" required min="1" max="120" placeholder="Your age">
+                                    <div class="invalid-feedback">Please provide a valid age.</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="gender" class="form-label fw-semibold">
+                                    <i class="fas fa-venus-mars me-1"></i>Gender
+                                </label>
+                                <select class="form-select form-select-lg" id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div class="invalid-feedback">Please select your gender.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contact_number" class="form-label fw-semibold">
+                                    <i class="fas fa-phone me-1"></i>Contact Number
+                                </label>
+                                <input type="tel" class="form-control form-control-lg" id="contact_number" name="contact_number" required placeholder="Your phone number">
+                                <div class="invalid-feedback">Please provide a valid contact number.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-semibold">
+                                    <i class="fas fa-envelope me-1"></i>Email Address
+                                </label>
+                                <input type="email" class="form-control form-control-lg" id="email" name="email" required placeholder="your.email@example.com">
+                                <div class="invalid-feedback">Please provide a valid email address.</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="password" class="form-label fw-semibold">
+                                    <i class="fas fa-lock me-1"></i>Password
+                                </label>
+                                <input type="password" class="form-control form-control-lg" id="password" name="password" required minlength="6" placeholder="Create a strong password">
+                                <div class="invalid-feedback">Password must be at least 6 characters long.</div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-user-plus me-2"></i>Create Account
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center bg-light">
+                        <p class="mb-0">Already have an account? <a href="/patient/login" class="text-primary fw-semibold">Sign In</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('form')
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+</body>
+</html>
